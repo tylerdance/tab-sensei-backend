@@ -8,9 +8,11 @@ const PORT = process.env.PORT || 8000;
 
 // api
 const users = require('./api/users')
+const request = require('./api/request')
+// const tabs = require('./api/tabs')
 
 // Middleware
-app.use(cors());
+app.use(cors({ origin: '*' }))
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
@@ -19,6 +21,8 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/users', users)
+// app.use('/api/tabs', tabs)
+app.use('/api/request', request)
 
 app.listen(PORT, () => {
     console.log(`Server is live on port ${PORT}`);
