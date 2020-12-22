@@ -18,7 +18,7 @@ const cors = require('cors');
     
 // })
 
-router.get('/test', (req, res) => {
+router.get('/:id', (req, res) => {
 //     res.send('Hello!')
 //     fetch("http://www.songsterr.com/a/ra/songs.json?pattern=thriller")
 //     .then((apiRes)=>{
@@ -26,7 +26,7 @@ router.get('/test', (req, res) => {
 //             res.json(json)
 //         })
 //     })
-   Axios.get(`http://www.songsterr.com/a/ra/songs.json?pattern=thriller`)
+   Axios.get(`http://www.songsterr.com/a/ra/songs.json?pattern=${req.params.id}`)
     .then(response=>{res.json(response.data)}).catch(err=>{console.log(err)})
 
 })
