@@ -31,7 +31,7 @@ const commentsSchema = new Schema({
 const profileSchema = new Schema({
   username: String,
   primary_inst: String,
-  stage_name: String,
+  image_url: String,
   comments: [commentsSchema],
   song_list: [songListSchema],
   beats_list: [beatsListSchema]
