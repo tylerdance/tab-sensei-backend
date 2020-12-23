@@ -54,4 +54,5 @@ const userSchema = new Schema({
   userProfile: [profileSchema]
 });
 
+
 module.exports = mongoose.model('User', userSchema);
