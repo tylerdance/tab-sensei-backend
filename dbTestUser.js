@@ -9,38 +9,42 @@ models.User.create({
     username: "jimmypage",
     primary_inst: "guitar",
     comments: [{
-                songsterr_id: "66015",
+                songsterr_id: 66015,
                 content: "this is a great tab"
               },
               {
-                songsterr_id: "136",
+                songsterr_id: 136,
                 content: "this is a great tab"
               },
               {
-                songsterr_id: "845",
+                songsterr_id: 845,
                 content: "this is a great tab"
               },
               {
-                songsterr_id: "25286",
+                songsterr_id: 25286,
                 content: "this is a great tab"
+              },
+              {
+                songsterr_id: 25286,
+                content: "is it really?"
               }
               ],
     song_list: [{
-                songsterr_id: "27213",
+                songsterr_id: 27213,
                 title: "Buffalo Soldier",
                 artist: [{
                   name: "Bob Marley"
                 }]
               },
               {
-                songsterr_id: "65136",
+                songsterr_id: 65136,
                 title: "Heaven's Calling",
                 artist: [{
                   name: "Black Veil Brides"
                 }]
               },
               {
-                songsterr_id: "25286",
+                songsterr_id: 25286,
                 title: "Shroud Of False",
                 artist: [{
                   name: "Anathema"
