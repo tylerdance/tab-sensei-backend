@@ -25,7 +25,7 @@ models.User.create({
                 content: "this is a great tab"
               }
               ],
-    songList: [{
+    song_list: [{
                 songsterr_id: "27213",
                 title: "Buffalo Soldier",
                 artist: [{
@@ -74,7 +74,7 @@ models.User.create({
                 content: "this is a great tab"
               }
               ],
-    songList: [{
+    song_list: [{
                 songsterr_id: 25037,
                 title: "andbfds",
                 artist: [{
