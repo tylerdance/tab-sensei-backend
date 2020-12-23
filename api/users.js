@@ -88,4 +88,13 @@ router.get('/current', passport.authenticate('jwt', { session: false }), (req, r
     })
 })
 
+router.get('/tabs/:tabid', (req, res) => {
+    // const name = req.params.name;
+    db.User.find({ "userProfile.comments.songsterr_id" : req.params.tabid })
+    .then((user) => {
+      res.status(201).json({ user })
+      // console.log();
+    }).catch((error) => res.send({ error }))
+})
+
 module.exports = router;
