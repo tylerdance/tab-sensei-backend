@@ -96,5 +96,18 @@ router.get('/tabs/:tabid', (req, res) => {
       // console.log();
     }).catch((error) => res.send({ error }))
 })
+//  POST route for profile information (first time)
+router.post('/profile/setup/', (req, res) => {
+  db.User.update({ name: "andrew" }, { $set: { "userProfile.username" : req.body.username, "userProfile.primary_inst" : req.body.primary_inst, "userProfile.image_url": req.body.image_url }} ).then((response) => {
+    res.status(201).json({ response })
+  }).catch((error) => res.send({ error }))
+})
+// individual routes to update each parameter?
+router.post('/profile/update/', (req, res) => {
+  db.User.update({ name: "andrew" }, { $set: { "userProfile.primary_inst" : req.body.primary_inst }} ).then((response) => {
+    res.status(201).json({ response })
+  }).catch((error) => res.send({ error }))
+})
+
 
 module.exports = router;
