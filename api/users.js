@@ -90,7 +90,7 @@ router.get('/current', passport.authenticate('jwt', { session: false }), (req, r
 
 router.get('/tabs/:tabid', (req, res) => {
     // const name = req.params.name;
-    db.User.find({ "userProfile.comments.songsterr_id" : req.params.tabid })
+    db.User.find({ "comments.songsterr_id" : req.params.tabid })
     .then((user) => {
       res.status(201).json({ user })
       // console.log();
@@ -98,16 +98,56 @@ router.get('/tabs/:tabid', (req, res) => {
 })
 //  POST route for profile information (first time)
 router.post('/profile/setup/', (req, res) => {
-  db.User.update({ name: "andrew" }, { $set: { "userProfile.username" : req.body.username, "userProfile.primary_inst" : req.body.primary_inst, "userProfile.image_url": req.body.image_url }} ).then((response) => {
+  db.User.update(
+    { name: "andrew" },
+    { $set: { "username" : req.body.username,
+            "primary_inst" : req.body.primary_inst,
+            "image_url": req.body.image_url }
+    }
+  ).then((response) => {
     res.status(201).json({ response })
   }).catch((error) => res.send({ error }))
 })
 // individual routes to update each parameter?
 router.post('/profile/update/', (req, res) => {
-  db.User.update({ name: "andrew" }, { $set: { "userProfile.primary_inst" : req.body.primary_inst }} ).then((response) => {
+  db.User.update(
+    { name: "andrew" },
+    { $set: { "primary_inst" : req.body.primary_inst }}
+  ).then((response) => {
     res.status(201).json({ response })
   }).catch((error) => res.send({ error }))
 })
 
+// draft PUT route to add a comment:
+router.put('/tabs/comments', (req, res) => {
+  const currentUser = "jimmypage";
+  const currentSong = 877643;
+  // comment from a comment field in req.body
+  db.User.update(
+    { username: currentUser },
+    { $push:
+      { "comments": { "songsterr_id": currentSong, "content": req.body.comment }}
+    }
+  ).then((response) => {
+    res.status(201).json({ response })
+  }).catch((error) => res.send({ error }))
+})
+
+// draft PUT route to add a tab to a user's song list
+router.put('/tabs/addsong', (req, res) => {
+  // grab the songsterr_id, title and artist.name from req.body?
+  db.User.update(
+    { username: currentUser },
+    { $push:
+      { "song_list":
+        { "songsterr_id": currentSong,
+          "title": currentTitle,
+          "artist": [{"name": artistName }]}
+        }
+      }
+    ).then((response) => {
+      res.status(201).json({ response })
+    }).catch((error) => res.send({ error }))
+})
 
 module.exports = router;
