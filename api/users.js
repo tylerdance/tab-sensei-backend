@@ -98,8 +98,7 @@ router.get('/tabs/:tabid', (req, res) => {
 })
 
 router.post('/tabs/addsong', (req, res) => {
-    // grab the songsterr_id, title and artist.name from req.body?
-    // const email = req.user.email;
+ 
     db.User.update(
       { email: req.body.email },
       { $push:
@@ -121,3 +120,4 @@ router.post('/tabs/addsong', (req, res) => {
   })
 
 module.exports = router;
+/////////////////////////
