@@ -90,11 +90,34 @@ router.get('/current', passport.authenticate('jwt', { session: false }), (req, r
 
 router.get('/tabs/:tabid', (req, res) => {
     // const name = req.params.name;
-    db.User.find({ "userProfile.comments.songsterr_id" : req.params.tabid })
+    db.User.find({ "comments.songsterr_id" : req.params.tabid })
     .then((user) => {
       res.status(201).json({ user })
       // console.log();
     }).catch((error) => res.send({ error }))
 })
+
+router.post('/tabs/addsong', (req, res) => {
+    // grab the songsterr_id, title and artist.name from req.body?
+    // const email = req.user.email;
+    db.User.update(
+      { email: req.body.email },
+      { $push:
+        { "song_list":
+          { "songsterr_id": req.body.tab_id,
+            "title": req.body.title,
+            "artist": [{"name": req.body.artist}]}
+          }
+        }
+      ).then((response) => {
+        res.status(201).json({ response })
+      }).catch((error) => res.send({ error }))
+  })
+
+  router.get('/mytabs/:id', (req, res) => {
+    db.User.find({ email: req.params.id }).then((user) => {
+      res.status(201).json({ user })
+    }).catch((error) => res.send({ error }))
+  })
 
 module.exports = router;
