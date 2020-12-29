@@ -1,14 +1,12 @@
 
 const models = require('./models/');
-
 models.User.create({
   name : "Jimmy Page",
 	email : "jimmy@ledzeppelin.com",
 	password : "$2a$10$EBVxG0QcsCFgAf/nj4GmyO/NyyB1zz2DKbRw94mw3ferpgrO04ixW",
-	userProfile : {
-    username: "jimmypage",
-    primary_inst: "guitar",
-    comments: [{
+  username: "jimmypage",
+  primary_inst: "guitar",
+  comments: [{
                 songsterr_id: 66015,
                 content: "this is a great tab"
               },
@@ -29,7 +27,7 @@ models.User.create({
                 content: "is it really?"
               }
               ],
-    song_list: [{
+  song_list: [{
                 songsterr_id: 27213,
                 title: "Buffalo Soldier",
                 artist: [{
@@ -51,17 +49,14 @@ models.User.create({
                 }]
               }
           ]
-        }
 }).then(() => console.log('complete 1'));
-
 models.User.create({
 	name : "Andres Segovia",
 	email : "andres@andressegovia.com",
 	password : "$2a$10$JOeheM/8rnz1W4l.jlDCse3F/oaN1fODoJec6xsXlbOY7FxOemCle",
-	userProfile : {
-    username: "andres-segovia",
-    primary_inst: "guitar",
-    comments: [{
+  username: "andres-segovia",
+  primary_inst: "guitar",
+  comments: [{
                 songsterr_id: 972,
                 content: "this is a great tab"
               },
@@ -78,7 +73,7 @@ models.User.create({
                 content: "this is a great tab"
               }
               ],
-    song_list: [{
+  song_list: [{
                 songsterr_id: 25037,
                 title: "andbfds",
                 artist: [{
@@ -107,5 +102,5 @@ models.User.create({
                 }]
               }
           ]
-        }
 }).then(() => console.log('complete 2'));
+////////////////////////

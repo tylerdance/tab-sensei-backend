@@ -28,14 +28,7 @@ const commentsSchema = new Schema({
   // timestamp: Timestamp
 })
 
-const profileSchema = new Schema({
-  username: String,
-  primary_inst: String,
-  stage_name: String,
-  comments: [commentsSchema],
-  song_list: [songListSchema],
-  beats_list: [beatsListSchema]
-})
+/////////////////
 
 const userSchema = new Schema({
   name: {
@@ -51,8 +44,20 @@ const userSchema = new Schema({
     required: true,
     minLength: 8
   },
-  userProfile: [profileSchema]
+
+  date: {
+    type: Date,
+    default: Date.now()
+  },
+  username: String,
+  primary_inst: String,
+  image_url: String,
+  comments: [commentsSchema],
+  song_list: [songListSchema],
+  beats_list: [beatsListSchema]
 });
 
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = User = mongoose.model('User', userSchema);
+
+///////////////////////////////////////////////////////////////
