@@ -113,11 +113,47 @@ router.post('/tabs/addsong', (req, res) => {
       }).catch((error) => res.send({ error }))
   })
 
-  router.get('/mytabs/:id', (req, res) => {
-    db.User.find({ email: req.params.id }).then((user) => {
-      res.status(201).json({ user })
+
+
+
+  router.post('/tabs/comments', (req, res) => {
+    const currentSong = req.body.tab_id;
+    const content = req.body.content;
+    const email = req.body.email;
+    // comment from a comment field in req.body
+    db.User.update(
+      { email: email },
+      { $push:
+        { "comments": { "songsterr_id": currentSong, "content": content }}
+      }
+    ).then((response) => {
+      res.status(201).json({ response })
     }).catch((error) => res.send({ error }))
   })
+
+  router.post('/profile/setup/image', (req, res) => {
+    const email = req.body.email;
+    db.User.update(
+      { email: email },
+      { $set: { "image_url": req.body.image_url }
+      }
+    ).then((response) => {
+      res.status(201).json({ response })
+    }).catch((error) => res.send({ error }))
+  })
+
+  router.get('/myphoto/:id', (req,res)=>{
+      db.User.find({ email: req.params.id }).then((user) => {
+        res.status(201).json({ user })
+      }).catch((error) => res.send({ error }))
+    })
+  
+router.get('/mytabs/:id', (req, res) => {
+        db.User.find({ email: req.params.id }).then((user) => {
+          res.status(201).json({ user })
+        }).catch((error) => res.send({ error }))
+      })   
+  
 
 module.exports = router;
 /////////////////////////
