@@ -26,6 +26,7 @@ router.post('/register', (req, res) => {
                 name: req.body.name,
                 email: req.body.email,
                 password: req.body.password,
+                image_url: req.body.image
             })
             // Salt and hash the password, then save the user
             bcrypt.genSalt(10, (err, salt) => {
