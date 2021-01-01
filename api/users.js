@@ -26,6 +26,7 @@ router.post('/register', (req, res) => {
                 name: req.body.name,
                 email: req.body.email,
                 password: req.body.password,
+                image_url: req.body.image
             })
             // Salt and hash the password, then save the user
             bcrypt.genSalt(10, (err, salt) => {
@@ -113,11 +114,68 @@ router.post('/tabs/addsong', (req, res) => {
       }).catch((error) => res.send({ error }))
   })
 
-  router.get('/mytabs/:id', (req, res) => {
-    db.User.find({ email: req.params.id }).then((user) => {
-      res.status(201).json({ user })
+
+
+
+  router.post('/tabs/comments', (req, res) => {
+    const currentSong = req.body.tab_id;
+    const content = req.body.content;
+    const email = req.body.email;
+    // comment from a comment field in req.body
+    db.User.update(
+      { email: email },
+      { $push:
+        { "comments": { "songsterr_id": currentSong, "content": content }}
+      }
+    ).then((response) => {
+      res.status(201).json({ response })
     }).catch((error) => res.send({ error }))
   })
+
+  router.post('/profile/setup/image', (req, res) => {
+    const email = req.body.email;
+    db.User.update(
+      { email: email },
+      { $set: { "image_url": req.body.image_url }
+      }
+    ).then((response) => {
+      res.status(201).json({ response })
+    }).catch((error) => res.send({ error }))
+  })
+
+  router.get('/myphoto/:id', (req,res)=>{
+      db.User.find({ email: req.params.id }).then((user) => {
+        res.status(201).json({ user })
+      }).catch((error) => res.send({ error }))
+    })
+  
+router.get('/mytabs/:id', (req, res) => {
+        db.User.find({ email: req.params.id }).then((user) => {
+          res.status(201).json({ user })
+        }).catch((error) => res.send({ error }))
+      })   
+ 
+      router.put('/profile/comments/delete', (req, res) => {
+        // Attach an event to a given comment that pulls the _id from the JSON data that's already there
+        // user[0].comments[i]._id
+        let mongoId = req.body._id;
+        db.User.update(
+          { email: req.body.email }, { $pull: { "comments": { "_id": mongoId } }}
+        ).then((response) => {
+          res.status(201).json({ response })
+        }).catch((error) => res.send({ error }))
+      })  
+      
+      router.put('/profile/tablist/delete', (req, res) => {
+        // Attach an event to a given comment that pulls the _id from the JSON data that's already there
+        // user[0].comments[i]._id
+        let mongoId = req.body._id;
+        db.User.update(
+          { email: req.body.email }, { $pull: { "song_list": { "_id": mongoId } }}
+        ).then((response) => {
+          res.status(201).json({ response })
+        }).catch((error) => res.send({ error }))
+      }) 
 
 module.exports = router;
 /////////////////////////
