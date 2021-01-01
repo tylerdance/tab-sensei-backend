@@ -154,7 +154,28 @@ router.get('/mytabs/:id', (req, res) => {
           res.status(201).json({ user })
         }).catch((error) => res.send({ error }))
       })   
-  
+ 
+      router.put('/profile/comments/delete', (req, res) => {
+        // Attach an event to a given comment that pulls the _id from the JSON data that's already there
+        // user[0].comments[i]._id
+        let mongoId = req.body._id;
+        db.User.update(
+          { email: req.body.email }, { $pull: { "comments": { "_id": mongoId } }}
+        ).then((response) => {
+          res.status(201).json({ response })
+        }).catch((error) => res.send({ error }))
+      })  
+      
+      router.put('/profile/tablist/delete', (req, res) => {
+        // Attach an event to a given comment that pulls the _id from the JSON data that's already there
+        // user[0].comments[i]._id
+        let mongoId = req.body._id;
+        db.User.update(
+          { email: req.body.email }, { $pull: { "song_list": { "_id": mongoId } }}
+        ).then((response) => {
+          res.status(201).json({ response })
+        }).catch((error) => res.send({ error }))
+      }) 
 
 module.exports = router;
 /////////////////////////
