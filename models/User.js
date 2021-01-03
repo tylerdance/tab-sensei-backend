@@ -25,6 +25,8 @@ const beatsListSchema = new Schema({
 const commentsSchema = new Schema({
   songsterr_id: Number,
   content: String,
+  date: String,
+  email: String,
   // timestamp: Timestamp
 })
 
