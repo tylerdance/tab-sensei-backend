@@ -121,11 +121,14 @@ router.post('/tabs/addsong', (req, res) => {
     const currentSong = req.body.tab_id;
     const content = req.body.content;
     const email = req.body.email;
+    const date=req.body.time;
+    
     // comment from a comment field in req.body
     db.User.update(
       { email: email },
+      
       { $push:
-        { "comments": { "songsterr_id": currentSong, "content": content }}
+        { "comments": { "songsterr_id": currentSong, "content": content, "date": date, "email": email }}
       }
     ).then((response) => {
       res.status(201).json({ response })
@@ -176,6 +179,12 @@ router.get('/mytabs/:id', (req, res) => {
           res.status(201).json({ response })
         }).catch((error) => res.send({ error }))
       }) 
+
+      router.get('/songlist/:id', (req, res) => {
+        db.User.find({ email: req.params.id }).then((response) => {
+          res.status(201).json({ response })
+        }).catch((error) => res.send({ error }))
+      })
 
 module.exports = router;
 /////////////////////////
