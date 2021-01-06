@@ -6,6 +6,13 @@
 
 dependencies: axios, bcrypt, cors, dotenv, express, jsonwebtoken, mongoose, passport, passport-jwt
 
+Your `.env` file should contain:
+`JWT_SECRET:` any string
+`MONGO_URI:` your MongoDB URI
+`YOU_TUBE_API_KEY:` your YouTube API key
+
+Register for a YouTube API key via [Google Developers](https://developers.google.com/youtube/v3/getting-started).
+
 
 ### Models
 
@@ -91,3 +98,6 @@ db.User.update(
   { email: req.body.email }, { $pull: { "song_list": { "_id": mongoId } }}
 )
 ```
+### Database Summary:
+
+![image](tab-sensei-db-summary.jpg)
